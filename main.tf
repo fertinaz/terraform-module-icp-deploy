@@ -121,7 +121,7 @@ resource "null_resource" "icp-image" {
   provisioner "remote-exec" {
     inline = [
       "echo \"Loading image ${var.icp-inception} ${var.image_location}\"",
-      "/tmp/icp-bootmaster-scripts/load-image.sh ${local.script_options}"
+      "sudo /tmp/icp-bootmaster-scripts/load-image.sh ${local.script_options}"
     ]
   }
 }
