@@ -12,14 +12,9 @@ fi
 parse_icpversion ${icp_version}
 echo "registry=${registry:-not specified} org=$org repo=$repo tag=$tag"
 
-echo "Sleep 10 minutes"; sleep 600
-echo "Sleep another minute"; sleep 60
-
 docker run -e LICENSE=accept -e ANSIBLE_CALLBACK_WHITELIST=profile_tasks,timer --net=host -t \
   -v ${cluster_dir}:/installer/cluster \
   ${registry}${registry:+/}${org}/${repo}:${tag} ${install_command} ${log_verbosity} \
   |& tee /tmp/icp-${install_command}-log.txt
 
 exit ${PIPESTATUS[0]}
-
-#   -v ${cluster_dir}/master.json.j2:/installer/playbook/roles/master/templates/pods/master.json.j2 \
